@@ -3,25 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#D4820A">
+<meta name="theme-color" content="#2DC8B0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="BaseKC">
 <meta name="description" content="Your local guide to Kansas City from Steve at BaseKC">
 <title>BaseKC Guest Guide</title>
 <link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --bg: #F9F6F1; --surface: #EEEAE3; --text: #1A1A18; --muted: #5C5A54;
-    --hint: #9A978F; --amber: #D4820A; --amber-light: #FDF3E0;
-    --amber-border: #F0C060; --border: #DDD9D0; --white: #FFFFFF;
-    --tag-walk-bg: #EAF3DE; --tag-walk-text: #27500A;
+    --bg: #F9F6F1; --surface: #EAECED; --text: #111111; --muted: #4A4A4A;
+    --hint: #8A8A8A; --amber: #2DC8B0; --amber-light: #E8F9F6;
+    --amber-border: #7ADFD2; --border: #D8DCDD; --white: #FFFFFF;
+    --tag-walk-bg: #E8F9F6; --tag-walk-text: #0D6B5E;
     --tag-drive-bg: #E6F1FB; --tag-drive-text: #0C447C;
-    --tag-must-bg: #FDF3E0; --tag-must-text: #7A4500;
+    --tag-must-bg: #E8F9F6; --tag-must-text: #0D6B5E;
     --radius: 10px; --radius-sm: 6px;
   }
   html { scroll-behavior: smooth; }
@@ -122,7 +124,7 @@
 
   /* Noland callout */
   .noland-callout { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; position: relative; overflow: hidden; }
-  .noland-callout::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, var(--amber) 0%, #F0C060 100%); }
+  .noland-callout::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, var(--amber) 0%, #7ADFD2 100%); }
   .noland-callout h4 { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 500; margin-bottom: 8px; padding-top: 4px; }
   .noland-callout p { font-size: 14px; color: var(--muted); line-height: 1.7; }
 
@@ -183,8 +185,8 @@
 <!-- Hero -->
 <header class="hero">
   <div class="hero-eyebrow">Independence, Missouri</div>
-  <h1>Welcome to BaseKC</h1>
-  <p class="hero-body">Our duplex has been in our family for years — we raised our kids here, and now we're glad to share it with you. It's a great home base for everything Kansas City has to offer. I put this guide together so you get the most out of your stay, with the same recommendations I'd give a friend visiting for the first time.</p>
+  <h1>Welcome to BASE<span style="color:var(--amber)">KC</span></h1>
+  <p class="hero-body">This duplex has been in our family for years — we raised our kids here, and now we're glad to share it with you. It's a great home base for everything Kansas City has to offer. I put this guide together so you get the most out of your stay, with the same recommendations I'd give a friend visiting for the first time.</p>
   <p class="hero-sig">— Steve</p>
 </header>
 
