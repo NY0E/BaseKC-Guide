@@ -15,343 +15,168 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --bg: #F9F6F1;
-    --surface: #EEEAE3;
-    --text: #1A1A18;
-    --muted: #5C5A54;
-    --hint: #9A978F;
-    --amber: #D4820A;
-    --amber-light: #FDF3E0;
-    --amber-border: #F0C060;
-    --border: #DDD9D0;
-    --white: #FFFFFF;
+    --bg: #F9F6F1; --surface: #EEEAE3; --text: #1A1A18; --muted: #5C5A54;
+    --hint: #9A978F; --amber: #D4820A; --amber-light: #FDF3E0;
+    --amber-border: #F0C060; --border: #DDD9D0; --white: #FFFFFF;
     --tag-walk-bg: #EAF3DE; --tag-walk-text: #27500A;
     --tag-drive-bg: #E6F1FB; --tag-drive-text: #0C447C;
     --tag-must-bg: #FDF3E0; --tag-must-text: #7A4500;
-    --radius: 10px;
-    --radius-sm: 6px;
+    --radius: 10px; --radius-sm: 6px;
   }
-
   html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.6; max-width: 680px; margin: 0 auto; padding: 0 0 80px; }
 
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    font-size: 16px;
-    line-height: 1.6;
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 0 0 80px;
-  }
-
-  /* Install banner */
-  .install-banner {
-    background: var(--amber);
-    color: var(--white);
-    padding: 14px 20px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    display: none;
-  }
-  .install-banner.visible { display: block; }
-  .install-banner-inner { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-  .install-banner p { font-size: 13px; font-weight: 500; }
-  .install-banner button {
-    background: var(--white);
-    color: var(--amber);
-    border: none;
-    padding: 6px 14px;
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-  .install-dismiss { background: none; color: var(--white); border: none; font-size: 18px; cursor: pointer; padding: 0 4px; flex-shrink: 0; }
+  /* Translate bar */
+  .translate-bar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 8px 16px; display: flex; align-items: center; gap: 8px; }
+  .translate-bar label { font-size: 12px; color: var(--muted); font-weight: 500; white-space: nowrap; }
+  #google_translate_element { font-size: 13px; }
+  .goog-te-gadget-simple { border: 1px solid var(--border) !important; border-radius: var(--radius-sm) !important; padding: 3px 8px !important; background: var(--white) !important; font-size: 13px !important; }
+  .goog-te-gadget-simple span { color: var(--text) !important; }
 
   /* Section nav */
-  .section-nav {
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    position: sticky;
-    top: 0;
-    z-index: 90;
-  }
+  .section-nav { background: var(--bg); border-bottom: 1px solid var(--border); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; position: sticky; top: 0; z-index: 90; }
   .section-nav::-webkit-scrollbar { display: none; }
-  .section-nav-inner { display: flex; gap: 0; padding: 0 16px; white-space: nowrap; }
-  .section-nav a {
-    display: inline-block;
-    padding: 12px 14px;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--muted);
-    text-decoration: none;
-    border-bottom: 2px solid transparent;
-    transition: color 0.15s, border-color 0.15s;
-  }
+  .section-nav-inner { display: flex; padding: 0 16px; white-space: nowrap; }
+  .section-nav a { display: inline-block; padding: 12px 12px; font-size: 12px; font-weight: 500; color: var(--muted); text-decoration: none; border-bottom: 2px solid transparent; transition: color 0.15s, border-color 0.15s; }
   .section-nav a:hover, .section-nav a.active { color: var(--amber); border-bottom-color: var(--amber); }
 
   /* Hero */
-  .hero {
-    padding: 40px 20px 32px;
-    border-bottom: 1px solid var(--border);
-  }
-  .hero-eyebrow {
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin-bottom: 10px;
-  }
-  .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 36px;
-    font-weight: 600;
-    line-height: 1.15;
-    color: var(--text);
-    margin-bottom: 16px;
-  }
+  .hero { padding: 40px 20px 32px; border-bottom: 1px solid var(--border); }
+  .hero-eyebrow { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber); margin-bottom: 10px; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 600; line-height: 1.15; color: var(--text); margin-bottom: 16px; }
   .hero-body { font-size: 15px; color: var(--muted); line-height: 1.75; margin-bottom: 12px; }
   .hero-sig { font-size: 14px; color: var(--hint); font-style: italic; }
 
   /* Install instructions */
-  .install-instructions {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 20px;
-  }
-  .install-instructions h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+  .install-instructions { background: var(--surface); border-bottom: 1px solid var(--border); padding: 20px; }
+  .install-instructions h3 { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 500; margin-bottom: 12px; }
   .install-tabs { display: flex; gap: 8px; margin-bottom: 14px; }
-  .install-tab {
-    font-size: 13px;
-    padding: 5px 14px;
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    background: var(--white);
-    color: var(--muted);
-    cursor: pointer;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-  }
+  .install-tab { font-size: 13px; padding: 5px 14px; border-radius: 20px; border: 1px solid var(--border); background: var(--white); color: var(--muted); cursor: pointer; font-family: 'Inter', sans-serif; font-weight: 500; }
   .install-tab.active { background: var(--amber); color: var(--white); border-color: var(--amber); }
   .install-steps { list-style: none; }
-  .install-steps li {
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-    padding: 5px 0;
-    font-size: 14px;
-    color: var(--muted);
-  }
-  .step-num {
-    min-width: 22px; height: 22px;
-    border-radius: 50%;
-    background: var(--amber);
-    color: var(--white);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 500;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
+  .install-steps li { display: flex; gap: 10px; align-items: flex-start; padding: 5px 0; font-size: 14px; color: var(--muted); }
+  .step-num { min-width: 22px; height: 22px; border-radius: 50%; background: var(--amber); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; flex-shrink: 0; margin-top: 1px; }
 
   /* Sections */
-  .section {
-    padding: 28px 20px 0;
-  }
+  .section { padding: 28px 20px 0; }
   .section:last-of-type { padding-bottom: 40px; }
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .section-title svg { color: var(--amber); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
   .section-intro { font-size: 14px; color: var(--muted); margin-bottom: 18px; line-height: 1.65; }
+  .subsection-title { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; color: var(--hint); margin: 20px 0 10px; }
+  .section-divider { border: none; border-top: 1px solid var(--border); margin: 28px 0 0; }
 
-  .subsection-title {
-    font-size: 13px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    color: var(--hint);
-    margin: 20px 0 10px;
-  }
+  /* Info grid for stay section */
+  .info-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 16px; }
+  .info-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; }
+  .info-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--amber); margin-bottom: 4px; }
+  .info-card-value { font-size: 14px; font-weight: 500; color: var(--text); }
+  .info-card-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
   /* Place list */
-  .place-list {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-  }
-  .place-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 12px 14px;
-    border-bottom: 1px solid var(--border);
-  }
+  .place-list { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 4px; }
+  .place-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--border); }
   .place-row:last-child { border-bottom: none; }
   .place-info { flex: 1; min-width: 0; }
   .place-name { font-size: 14px; font-weight: 500; color: var(--text); }
   .place-note { font-size: 13px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
   .place-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex-shrink: 0; }
 
+  /* Accordion */
+  .accordion { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 4px; }
+  .accordion-trigger { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: none; border: none; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: var(--muted); text-align: left; border-top: 1px solid var(--border); }
+  .accordion-trigger:first-child { border-top: none; }
+  .accordion-trigger svg { transition: transform 0.2s; flex-shrink: 0; }
+  .accordion-trigger.open svg { transform: rotate(180deg); }
+  .accordion-content { display: none; border-top: 1px solid var(--border); }
+  .accordion-content.open { display: block; }
+  .accordion-inner { padding: 10px 14px 14px; }
+  .accordion-inner p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
   /* Tags */
-  .tag {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 500;
-    padding: 2px 9px;
-    border-radius: 20px;
-  }
+  .tag { display: inline-block; font-size: 11px; font-weight: 500; padding: 2px 9px; border-radius: 20px; }
   .tag-walk { background: var(--tag-walk-bg); color: var(--tag-walk-text); }
   .tag-drive { background: var(--tag-drive-bg); color: var(--tag-drive-text); }
   .tag-must { background: var(--tag-must-bg); color: var(--tag-must-text); }
 
   /* Nav buttons */
   .nav-btns { display: flex; gap: 4px; }
-  .nav-btn {
-    font-size: 11px;
-    font-weight: 500;
-    padding: 3px 8px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border);
-    background: var(--bg);
-    color: var(--muted);
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 3px;
-    white-space: nowrap;
-  }
+  .nav-btn { font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--bg); color: var(--muted); text-decoration: none; display: inline-flex; align-items: center; gap: 3px; white-space: nowrap; }
   .nav-btn:hover { background: var(--surface); }
   .nav-btn-waze { border-color: #33CCFF; color: #0C447C; background: #F0F9FF; }
-  .nav-btn-maps { border-color: var(--border); }
 
   /* Highlight card */
-  .highlight-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--amber);
-    border-radius: 0 var(--radius) var(--radius) 0;
-    padding: 14px 16px;
-    margin-bottom: 16px;
-  }
+  .highlight-card { background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--amber); border-radius: 0 var(--radius) var(--radius) 0; padding: 14px 16px; margin-bottom: 12px; }
   .highlight-card .place-name { font-size: 15px; margin-bottom: 6px; }
   .highlight-card .place-note { font-size: 14px; }
 
   /* Tip box */
-  .tip {
-    background: var(--amber-light);
-    border-left: 3px solid var(--amber-border);
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-    padding: 12px 14px;
-    margin: 10px 0;
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.65;
-  }
+  .tip { background: var(--amber-light); border-left: 3px solid var(--amber-border); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 12px 14px; margin: 10px 0; font-size: 13px; color: var(--muted); line-height: 1.65; }
 
-  /* Getting around cards */
+  /* Route grid */
   .route-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 4px; }
-  .route-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 12px 14px;
-  }
+  .route-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; }
   .route-label { font-size: 11px; font-weight: 500; color: var(--amber); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
   .route-name { font-size: 14px; font-weight: 500; color: var(--text); }
   .route-sub { font-size: 12px; color: var(--muted); margin-top: 3px; }
 
   /* Noland callout */
-  .noland-callout {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px;
-    position: relative;
-    overflow: hidden;
-  }
-  .noland-callout::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 3px;
-    background: linear-gradient(90deg, var(--amber) 0%, #F0C060 100%);
-  }
-  .noland-callout h4 {
-    font-family: 'Playfair Display', serif;
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 8px;
-    padding-top: 4px;
-  }
+  .noland-callout { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; position: relative; overflow: hidden; }
+  .noland-callout::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, var(--amber) 0%, #F0C060 100%); }
+  .noland-callout h4 { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 500; margin-bottom: 8px; padding-top: 4px; }
   .noland-callout p { font-size: 14px; color: var(--muted); line-height: 1.7; }
 
-  /* Back to top */
-  .back-top {
-    position: fixed;
-    bottom: 24px;
-    right: 20px;
-    background: var(--amber);
-    color: var(--white);
-    border: none;
-    border-radius: 50%;
-    width: 44px; height: 44px;
-    font-size: 20px;
-    cursor: pointer;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    z-index: 80;
-    text-decoration: none;
-  }
-  .back-top.visible { display: flex; }
+  /* Emergency card */
+  .emergency-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .emergency-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; }
+  .emergency-card-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--hint); margin-bottom: 4px; }
+  .emergency-card-value { font-size: 14px; font-weight: 500; color: var(--text); }
+  .emergency-card a { color: var(--amber); text-decoration: none; }
 
-  /* Divider */
-  .section-divider { border: none; border-top: 1px solid var(--border); margin: 28px 0 0; }
+  /* Weather tips */
+  .weather-row { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
+  .weather-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; }
+  .weather-card-season { font-size: 12px; font-weight: 500; color: var(--amber); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+  .weather-card-note { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  /* Direct booking CTA */
+  .book-direct { background: var(--amber); border-radius: var(--radius); padding: 20px; margin-top: 8px; text-align: center; }
+  .book-direct p { font-size: 14px; color: rgba(255,255,255,0.85); margin-bottom: 12px; line-height: 1.6; }
+  .book-direct a { display: inline-block; background: var(--white); color: var(--amber); font-weight: 500; font-size: 14px; padding: 10px 24px; border-radius: var(--radius-sm); text-decoration: none; }
+
+  /* Back to top */
+  .back-top { position: fixed; bottom: 24px; right: 20px; background: var(--amber); color: var(--white); border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 20px; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 80; text-decoration: none; }
+  .back-top.visible { display: flex; }
 
   @media (max-width: 400px) {
     .hero h1 { font-size: 28px; }
     .route-grid { grid-template-columns: 1fr; }
+    .info-grid { grid-template-columns: 1fr; }
+    .emergency-grid { grid-template-columns: 1fr; }
+    .weather-row { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 
+<!-- Google Translate -->
+<div class="translate-bar">
+  <label>🌐 Translate:</label>
+  <div id="google_translate_element"></div>
+</div>
+
 <!-- Section nav -->
 <nav class="section-nav" aria-label="Jump to section">
   <div class="section-nav-inner">
     <a href="#install">Save Guide</a>
+    <a href="#stay">Your Stay</a>
     <a href="#around">Getting Around</a>
     <a href="#noland">Car Culture</a>
     <a href="#local">Local Eats</a>
     <a href="#bbq">BBQ Guide</a>
     <a href="#todo">Things To Do</a>
+    <a href="#outdoors">Outdoors</a>
+    <a href="#international">Visitor Tips</a>
   </div>
 </nav>
 
@@ -365,10 +190,7 @@
 
 <!-- Install instructions -->
 <div class="install-instructions" id="install">
-  <h3>
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--amber)"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
-    Save this guide to your home screen
-  </h3>
+  <h3>📱 Save this guide to your home screen</h3>
   <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">Works like an app, no download required. One tap away anytime — even offline.</p>
   <div class="install-tabs">
     <button class="install-tab active" onclick="showTab('ios')" id="tab-ios">iPhone</button>
@@ -388,13 +210,92 @@
   </ul>
 </div>
 
+<!-- Your Stay -->
+<section class="section" id="stay">
+  <h2 class="section-title">Your stay</h2>
+  <p class="section-intro">Everything you need to know about the property.</p>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-card-label">Check-in</div>
+      <div class="info-card-value">3:00 PM</div>
+      <div class="info-card-sub">Self check-in via smart lock</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Check-out</div>
+      <div class="info-card-value">11:00 AM</div>
+      <div class="info-card-sub">Please be prompt</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Parking</div>
+      <div class="info-card-value">Driveway</div>
+      <div class="info-card-sub">Park in the dedicated space for your unit</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Quiet hours</div>
+      <div class="info-card-value">10 PM – 8 AM</div>
+      <div class="info-card-sub">Please be mindful of neighbors</div>
+    </div>
+  </div>
+
+  <div class="subsection-title">Trash &amp; recycling</div>
+  <div class="place-list">
+    <div class="place-row"><div class="place-info"><div class="place-name">Trash</div><div class="place-note">Bin is on the west side of the duplex. Set out Wednesday evening for Thursday morning pickup. Note: there is no recycling service at this property.</div></div></div>
+    
+  </div>
+
+
+  <div class="subsection-title">House rules</div>
+  <div class="place-list">
+    <div class="place-row"><div class="place-info"><div class="place-name">No smoking</div><div class="place-note">Smoking of any kind is not permitted anywhere on the property, including outdoors.</div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Vacuum — important</div><div class="place-note">Please do not use the vacuum on water or wet surfaces.</div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Pets</div><div class="place-note">We love your pets! Please clean up after them both inside and outside the property.</div></div></div>
+  </div>
+
+  <div class="subsection-title">Emergency contacts</div>
+  <div class="emergency-grid">
+    <div class="emergency-card">
+      <div class="emergency-card-label">Emergency</div>
+      <div class="emergency-card-value"><a href="tel:911">911</a></div>
+    </div>
+    <div class="emergency-card">
+      <div class="emergency-card-label">Non-emergency police</div>
+      <div class="emergency-card-value"><a href="tel:8163252222">(816) 325-2222</a></div>
+    </div>
+    <div class="emergency-card">
+      <div class="emergency-card-label">Nearest ER</div>
+      <div class="emergency-card-value">Centerpoint Medical Center</div>
+    </div>
+    <div class="emergency-card">
+      <div class="emergency-card-label">Urgent care</div>
+      <div class="emergency-card-value">Walgreens or CVS — both walkable</div>
+    </div>
+    <div class="emergency-card" style="grid-column: span 2;">
+      <div class="emergency-card-label">Your host</div>
+      <div class="emergency-card-value">Steve — contact via your booking platform. Contact info also posted inside the unit.</div>
+    </div>
+  </div>
+
+  <div class="subsection-title">Getting around without a car</div>
+  <div class="place-list">
+    <div class="place-row"><div class="place-info"><div class="place-name">Uber &amp; Lyft</div><div class="place-note">Both work well in Independence and KC. Wait times are generally reasonable but can be longer late at night in suburban areas — plan ahead after evening events.</div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">RideKC Bus</div><div class="place-note">Kansas City's public transit system. Good for downtown KC routes. Check the RideKC app for stops and schedules near the property.</div></div></div>
+  </div>
+
+  <div class="subsection-title">A fun fact about your tap water</div>
+  <div class="highlight-card">
+    <div class="place-name" style="margin-bottom:6px;">Independence tap water is among the best in the world</div>
+    <p class="place-note">Independence's municipal water consistently ranks among the highest quality tap water in the world. We've provided a Brita filter for your comfort and for better coffee, but drinking straight from the tap is perfectly fine — and genuinely good.</p>
+  </div>
+
+</section>
+
+<hr class="section-divider">
+
 <!-- Getting Around -->
 <section class="section" id="around">
-  <h2 class="section-title">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
-    Getting around
-  </h2>
-  <p class="section-intro">One of the best things about this location is how easy it is to get anywhere in the metro. You're a few minutes from major highways in every direction. Most of what I recommend below is 15–30 minutes away at most.</p>
+  <h2 class="section-title">Getting around</h2>
+  <p class="section-intro">One of the best things about this location is how easy it is to get anywhere in the metro. Most of what I recommend below is 15–30 minutes away at most.</p>
   <div class="route-grid">
     <div class="route-card">
       <div class="route-label">East</div>
@@ -418,13 +319,10 @@
 
 <!-- Noland Road Car Culture -->
 <section class="section" id="noland">
-  <h2 class="section-title">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v5"/><circle cx="16" cy="19" r="2"/><circle cx="7" cy="19" r="2"/><path d="M14 17H9"/></svg>
-    Noland Road car culture
-  </h2>
+  <h2 class="section-title">Noland Road car culture</h2>
   <div class="noland-callout">
     <h4>Saturday nights on Noland Road</h4>
-    <p>Noland Road has been the historical center of Kansas City's car culture for decades. On Saturday evenings, spontaneous car shows can pop up anywhere along the stretch between 40 Highway and 23rd Street — classics, customs, muscle cars, you name it. If you happen to be around on a Saturday, it's absolutely worth cruising by to check out the cars and chat with the owners. Very welcoming crowd, completely free, and one of those only-in-KC experiences most visitors never know about.</p>
+    <p>Noland Road has been the historical center of Kansas City's car culture for decades. On Saturday evenings, spontaneous car shows can pop up anywhere along the stretch between 40 Highway and 23rd Street — classics, customs, muscle cars, you name it. Very welcoming crowd, completely free, and one of those only-in-KC experiences most visitors never know about.</p>
   </div>
 </section>
 
@@ -432,67 +330,48 @@
 
 <!-- Right outside your door -->
 <section class="section" id="local">
-  <h2 class="section-title">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>
-    Right outside your door
-  </h2>
+  <h2 class="section-title">Right outside your door</h2>
   <p class="section-intro">The intersection of 39th and Noland has everything you need. Tap a button to navigate directly.</p>
 
   <div class="subsection-title">Food &amp; drink</div>
   <div class="place-list">
-    <div class="place-row">
-      <div class="place-info"><div class="place-name">Hawaiian Bros</div><div class="place-note">Our family go-to. A couple of large bowls can feed 3–4 people — better value than it looks at first glance.</div></div>
-      <div class="place-actions"><span class="tag tag-must">must try</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Hawaiian+Bros+Independence+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Hawaiian+Bros+Independence+MO" target="_blank">Maps</a></div></div>
-    </div>
-    <div class="place-row">
-      <div class="place-info"><div class="place-name">Hacienda Vieja Mexican Grill</div><div class="place-note">Local Mexican spot</div></div>
-      <div class="place-actions"><span class="tag tag-walk">walk</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Hacienda+Vieja+Mexican+Grill+Independence+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Hacienda+Vieja+Mexican+Grill+Independence+MO" target="_blank">Maps</a></div></div>
-    </div>
-    <div class="place-row">
-      <div class="place-info"><div class="place-name">Palacana</div><div class="place-note">Worth checking out — especially their Mexican ice cream, which is the real draw.</div></div>
-      <div class="place-actions"><span class="tag tag-walk">walk</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Palacana+Independence+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Palacana+Independence+MO" target="_blank">Maps</a></div></div>
-    </div>
-    <div class="place-row">
-      <div class="place-info"><div class="place-name">Andy's Frozen Custard</div><div class="place-note">If you've never had frozen custard, this is the place to start.</div></div>
-      <div class="place-actions"><span class="tag tag-walk">walk</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Andy%27s+Frozen+Custard+Independence+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Andy%27s+Frozen+Custard+Independence+MO" target="_blank">Maps</a></div></div>
-    </div>
-    <div class="place-row">
-      <div class="place-info"><div class="place-name">Fringe Beerworks</div><div class="place-note">Casual local microbrewery just down Noland Road. Good spot for an easy evening out.</div></div>
-      <div class="place-actions"><span class="tag tag-drive">short drive</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=4354+S+Noland+Rd+Independence+MO+64055" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?address=4354+S+Noland+Rd,+Independence,+MO+64055" target="_blank">Maps</a></div></div>
-    </div>
-    <div class="place-row">
-      <div class="place-info"><div class="place-name">Food trucks</div><div class="place-note">Various trucks rotate through the area. Keep an eye out for Three Little Pigs BBQ and the smashburger truck in particular.</div></div>
-      <div class="place-actions"><span class="tag tag-walk">walk</span></div>
-    </div>
-    <div class="place-row">
-      <div class="place-info"><div class="place-name">Also nearby</div><div class="place-note">Denny's, Domino's, Little Caesar's, Jimmy John's, Sonic, Pizza Street, Subway, Panda Express</div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Hawaiian Bros</div><div class="place-note">Our family go-to. A couple of large bowls can feed 3–4 people — better value than it looks at first glance.</div></div><div class="place-actions"><span class="tag tag-must">must try</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Hawaiian+Bros+Independence+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Hawaiian+Bros+Independence+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Hacienda Vieja Mexican Grill</div><div class="place-note">Local Mexican spot</div></div><div class="place-actions"><span class="tag tag-walk">walk</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Hacienda+Vieja+Mexican+Grill+Independence+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Hacienda+Vieja+Mexican+Grill+Independence+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Palacana</div><div class="place-note">Worth checking out — especially their Mexican ice cream, which is the real draw.</div></div><div class="place-actions"><span class="tag tag-walk">walk</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Palacana+Independence+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Palacana+Independence+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Andy's Frozen Custard</div><div class="place-note">If you've never had frozen custard, this is the place to start.</div></div><div class="place-actions"><span class="tag tag-walk">walk</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Andy%27s+Frozen+Custard+Independence+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Andy%27s+Frozen+Custard+Independence+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Fringe Beerworks</div><div class="place-note">Casual local microbrewery just down Noland Road. Good spot for an easy evening out.</div></div><div class="place-actions"><span class="tag tag-drive">short drive</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=4354+S+Noland+Rd+Independence+MO+64055" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?address=4354+S+Noland+Rd,+Independence,+MO+64055" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Food trucks</div><div class="place-note">Various trucks rotate through the area. Keep an eye out for Three Little Pigs BBQ and the smashburger truck in particular.</div></div><div class="place-actions"><span class="tag tag-walk">walk</span></div></div>
+
+    <button class="accordion-trigger" onclick="toggleAccordion(this)">
+      Also nearby (fast food &amp; chains)
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="accordion-content">
+      <div class="accordion-inner"><p>Denny's, Domino's, Little Caesar's, Jimmy John's, Sonic, Pizza Street, Subway, Panda Express — all within easy reach of the duplex.</p></div>
     </div>
   </div>
 
   <div class="subsection-title">A little farther (short drive)</div>
   <div class="place-list">
-    <div class="place-row"><div class="place-info"><div class="place-name">Five Guys</div></div><div class="place-actions"><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Five+Guys+Independence+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Five+Guys+Independence+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">MaMa Garden</div></div><div class="place-actions"><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=MaMa+Garden+Independence+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=MaMa+Garden+Independence+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">Scooter's Coffee</div></div><div class="place-actions"><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Scooter%27s+Coffee+Independence+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Scooter%27s+Coffee+Independence+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">The Honey Baked Ham Company</div></div><div class="place-actions"><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Honey+Baked+Ham+Independence+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Honey+Baked+Ham+Independence+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">McDonald's, Taco John's, Arby's</div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Five Guys</div></div><div class="place-actions"><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Five+Guys+Independence+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Five+Guys+Independence+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">MaMa Garden</div></div><div class="place-actions"><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=MaMa+Garden+Independence+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=MaMa+Garden+Independence+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Scooter's Coffee</div></div><div class="place-actions"><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Scooter%27s+Coffee+Independence+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Scooter%27s+Coffee+Independence+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">The Honey Baked Ham Company</div></div><div class="place-actions"><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Honey+Baked+Ham+Independence+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Honey+Baked+Ham+Independence+MO" target="_blank">Maps</a></div></div></div>
   </div>
 
   <div class="subsection-title">Groceries &amp; essentials</div>
   <div class="place-list">
-    <div class="place-row"><div class="place-info"><div class="place-name">Walmart Neighborhood Market</div><div class="place-note">Closest quick grocery run</div></div><div class="place-actions"><span class="tag tag-drive">short drive</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Walmart+Neighborhood+Market+Independence+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Walmart+Neighborhood+Market+Independence+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">HyVee</div><div class="place-note">Full-service grocery, good deli</div></div><div class="place-actions"><span class="tag tag-drive">short drive</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=HyVee+Independence+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=HyVee+Independence+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">Price Chopper</div></div><div class="place-actions"><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Price+Chopper+Independence+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Price+Chopper+Independence+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">Walmart Supercenter</div></div><div class="place-actions"><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Walmart+Supercenter+Independence+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Walmart+Supercenter+Independence+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">Target</div></div><div class="place-actions"><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Target+Independence+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Target+Independence+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">Walgreens / CVS</div><div class="place-note">Both nearby for pharmacy needs, convenience essentials, and urgent care clinic services.</div></div><div class="place-actions"><span class="tag tag-walk">walk</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Walgreens+Independence+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Walgreens+Independence+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Walmart Neighborhood Market</div><div class="place-note">Closest quick grocery run</div></div><div class="place-actions"><span class="tag tag-drive">short drive</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Walmart+Neighborhood+Market+Independence+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Walmart+Neighborhood+Market+Independence+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">HyVee</div><div class="place-note">Full-service grocery, good deli</div></div><div class="place-actions"><span class="tag tag-drive">short drive</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=HyVee+Independence+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=HyVee+Independence+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Target / Walmart Supercenter / Price Chopper</div><div class="place-note">All within a short drive</div></div><div class="place-actions"><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Target+Independence+MO" target="_blank">Waze</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Walgreens / CVS</div><div class="place-note">Pharmacy, convenience essentials, and urgent care clinic — both walkable.</div></div><div class="place-actions"><span class="tag tag-walk">walk</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Walgreens+Independence+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Walgreens+Independence+MO" target="_blank">Maps</a></div></div></div>
   </div>
 
   <div class="subsection-title">Quirky local find</div>
   <div class="highlight-card">
-    <div class="place-row" style="padding:0; border:none;">
-      <div class="place-info"><div class="place-name">Cargo Largo</div><div class="place-note">Super close to the duplex. Think liquidation store meets treasure hunt — everything from clothes to 3D printers. Not everything is a deal, so pay attention to the sales and markdowns. But when you find something good, it's genuinely good.</div></div>
-      <div class="place-actions"><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Cargo+Largo+Independence+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Cargo+Largo+Independence+MO" target="_blank">Maps</a></div></div>
+    <div class="place-row" style="padding:0;border:none;">
+      <div class="place-info"><div class="place-name">Cargo Largo</div><div class="place-note">Think liquidation store meets treasure hunt — everything from clothes to 3D printers. Not everything is a deal, so pay attention to the sales and markdowns. But when you find something good, it's genuinely good.</div></div>
+      <div class="place-actions"><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Cargo+Largo+Independence+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Cargo+Largo+Independence+MO" target="_blank">Maps</a></div></div>
     </div>
   </div>
 </section>
@@ -501,29 +380,22 @@
 
 <!-- BBQ -->
 <section class="section" id="bbq">
-  <h2 class="section-title">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6M6.3 5.3l4.2 4.2M2 12h6M5.3 17.7l4.2-4.2M12 22v-6M17.7 17.7l-4.2-4.2M22 12h-6M18.7 6.3l-4.2 4.2"/></svg>
-    Kansas City BBQ — Steve's guide
-  </h2>
+  <h2 class="section-title">Kansas City BBQ — Steve's guide</h2>
   <p class="section-intro">There are so many options and strong opinions here. A few things to know before you order:</p>
   <div class="tip">Pulled pork wasn't really a KC thing until the last 20 years or so. If you want to eat like a local, go for burnt ends, brisket, or ribs. Also — don't be surprised if your ribs aren't "fall off the bone." According to KC BBQ Society rules, that actually means overcooked.</div>
   <div class="tip">KC sauce is typically molasses and tomato-based. Gates and Jack Stack are crowd-pleasers and great to bring home as gifts. If you spot a mustard-based sauce on a menu, it's usually worth trying.</div>
 
   <div class="subsection-title">My recommendations</div>
   <div class="place-list">
-    <div class="place-row"><div class="place-info"><div class="place-name">Arthur Bryant's</div><div class="place-note">Historic. Been around since 1908, near 18th &amp; Vine. Get the brisket sandwich — it's the thing. The sauce is polarizing but completely unique. Go before 11:30 or after 1:30 to avoid a 45-minute line. One order of fries feeds 2–3 people. Stay near the restaurant and the 18th &amp; Vine intersection — I'd avoid walking between the two on foot.</div></div><div class="place-actions"><span class="tag tag-must">must try</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Arthur+Bryant%27s+BBQ+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Arthur+Bryant%27s+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">Q39</div><div class="place-note">Probably the best high-end choice. Downtown KC or Overland Park locations. The BBQ wings might be the best I've ever had. Worth a reservation.</div></div><div class="place-actions"><span class="tag tag-must">must try</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Q39+BBQ+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Q39+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">Jack Stack</div><div class="place-note">Great sit-down experience. Lee's Summit location is my preference — avoid the Union Station one during peak hours. Order the burnt ends or a burnt end sandwich.</div></div><div class="place-actions"><span class="tag tag-must">must try</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Jack+Stack+BBQ+Lee%27s+Summit+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Jack+Stack+BBQ+Lee%27s+Summit+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">Char Bar</div><div class="place-note">Very good burnt ends. Fun atmosphere in Westport.</div></div><div class="place-actions"><span class="tag tag-drive">20 min</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Char+Bar+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Char+Bar+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">Gates Bar-B-Q</div><div class="place-note">Multiple locations, classic KC experience. Good sauce to bring home.</div></div><div class="place-actions"><span class="tag tag-drive">varies</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Gates+Bar-B-Q+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Gates+Bar-B-Q+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">A Little BBQ Joint</div><div class="place-note">Over by the Truman Library, close to the duplex. Solid local spot.</div></div><div class="place-actions"><span class="tag tag-drive">short drive</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=A+Little+BBQ+Joint+Independence+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=A+Little+BBQ+Joint+Independence+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">Hi-Boy</div><div class="place-note">Not BBQ, but worth mentioning — hyper-local Independence burger spot doing smashburgers long before it was trendy. Multiple locations, all within Independence city limits.</div></div><div class="place-actions"><span class="tag tag-drive">short drive</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Hi-Boy+Independence+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Hi-Boy+Independence+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">Joe's Kansas City</div><div class="place-note">You'll hear about it — it's good. Best ribs in town in my opinion. Unique sandwiches worth trying. Kansas-side only, which feels a little off for a KC institution.</div></div><div class="place-actions"><span class="tag tag-drive">KS side</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Joe%27s+Kansas+City+Bar-B-Que" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Joe%27s+Kansas+City+Bar-B-Que" target="_blank">Maps</a></div></div></div>
-  </div>
-
-  <div class="subsection-title">Bonus: Fritz' Deli</div>
-  <div class="place-list">
-    <div class="place-row"><div class="place-info"><div class="place-name">Fritz' Deli</div><div class="place-note">Off I-435 in south KC. Specializes in sausages — hot dogs, brats, that kind of thing. Daily special is around $5. Cheap, delicious, and very KC.</div></div><div class="place-actions"><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Fritz+Deli+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Fritz+Deli+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Arthur Bryant's</div><div class="place-note">Historic. Been around since 1908, near 18th &amp; Vine. Get the brisket sandwich. Go before 11:30 or after 1:30 to avoid a 45-minute line. One order of fries feeds 2–3 people. Stay near the restaurant — I'd avoid walking between it and the 18th &amp; Vine intersection on foot.</div></div><div class="place-actions"><span class="tag tag-must">must try</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Arthur+Bryant%27s+BBQ+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Arthur+Bryant%27s+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Q39</div><div class="place-note">Probably the best high-end choice. Downtown KC or Overland Park locations. The BBQ wings might be the best I've ever had. Worth a reservation.</div></div><div class="place-actions"><span class="tag tag-must">must try</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Q39+BBQ+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Q39+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Jack Stack</div><div class="place-note">Great sit-down experience. Lee's Summit location is my preference — avoid the Union Station one during peak hours. Order the burnt ends or a burnt end sandwich.</div></div><div class="place-actions"><span class="tag tag-must">must try</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Jack+Stack+BBQ+Lee%27s+Summit+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Jack+Stack+BBQ+Lee%27s+Summit+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Char Bar</div><div class="place-note">Very good burnt ends. Fun atmosphere in Westport.</div></div><div class="place-actions"><span class="tag tag-drive">20 min</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Char+Bar+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Char+Bar+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Gates Bar-B-Q</div><div class="place-note">Multiple locations, classic KC experience. Good sauce to bring home.</div></div><div class="place-actions"><span class="tag tag-drive">varies</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Gates+Bar-B-Q+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Gates+Bar-B-Q+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">A Little BBQ Joint</div><div class="place-note">Over by the Truman Library, close to the duplex. Solid local spot.</div></div><div class="place-actions"><span class="tag tag-drive">short drive</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=A+Little+BBQ+Joint+Independence+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=A+Little+BBQ+Joint+Independence+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Joe's Kansas City</div><div class="place-note">You'll hear about it — it's good. Best ribs in town in my opinion. Unique sandwiches worth trying. Kansas-side only, which feels a little off for a KC institution.</div></div><div class="place-actions"><span class="tag tag-drive">KS side</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Joe%27s+Kansas+City+Bar-B-Que" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Joe%27s+Kansas+City+Bar-B-Que" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Hi-Boy</div><div class="place-note">Not BBQ, but worth mentioning — hyper-local Independence burger spot doing smashburgers long before it was trendy. Multiple locations, all within Independence city limits.</div></div><div class="place-actions"><span class="tag tag-drive">short drive</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Hi-Boy+Independence+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Hi-Boy+Independence+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Fritz' Deli</div><div class="place-note">Off I-435 in south KC. Specializes in sausages — hot dogs, brats, that kind of thing. Daily special around $5. Cheap, delicious, and very KC.</div></div><div class="place-actions"><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Fritz+Deli+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Fritz+Deli+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
   </div>
 </section>
 
@@ -531,50 +403,112 @@
 
 <!-- Things to do -->
 <section class="section" id="todo">
-  <h2 class="section-title">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-    Things to do
-  </h2>
+  <h2 class="section-title">Things to do</h2>
 
   <div class="subsection-title">Independence — right here</div>
   <div class="place-list">
-    <div class="place-row"><div class="place-info"><div class="place-name">Independence Square</div><div class="place-note">A cute historic square about 10 minutes away — on the way to the Truman Library. Several restaurants and a couple of bars to explore. Nice place to spend an hour or two wandering around.</div></div><div class="place-actions"><span class="tag tag-drive">10 min</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Independence+Square+Independence+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Independence+Square+Independence+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">Harry S Truman Presidential Library</div><div class="place-note">Worth a visit if you're into history. Adults tend to get more out of it than kids, but it's genuinely interesting. Pair it with a stop at Independence Square on the way.</div></div><div class="place-actions"><span class="tag tag-drive">short drive</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Truman+Presidential+Library+Independence+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Truman+Presidential+Library+Independence+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">Cargo Largo</div><div class="place-note">Already mentioned above — great for a rainy afternoon browse.</div></div><div class="place-actions"><span class="tag tag-walk">walk</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Cargo+Largo+Independence+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Cargo+Largo+Independence+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Independence Square</div><div class="place-note">A cute historic square about 10 minutes away — on the way to the Truman Library. Several restaurants and a couple of bars to explore. Nice place to spend an hour or two wandering around.</div></div><div class="place-actions"><span class="tag tag-drive">10 min</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Independence+Square+Independence+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Independence+Square+Independence+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Harry S Truman Presidential Library</div><div class="place-note">Worth a visit if you're into history. Pair it with a stop at Independence Square on the way.</div></div><div class="place-actions"><span class="tag tag-drive">short drive</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Truman+Presidential+Library+Independence+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Truman+Presidential+Library+Independence+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Cargo Largo</div><div class="place-note">Already mentioned above — great for a rainy afternoon browse.</div></div><div class="place-actions"><span class="tag tag-walk">walk</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Cargo+Largo+Independence+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Cargo+Largo+Independence+MO" target="_blank">Maps</a></div></div></div>
   </div>
 
   <div class="subsection-title">Most slept-on KC attraction</div>
   <div class="highlight-card">
     <div class="place-row" style="padding:0;border:none;">
       <div class="place-info"><div class="place-name">Money Museum at the Federal Reserve</div><div class="place-note">Completely free, genuinely fascinating, and almost nobody knows about it. Right by the Liberty Memorial and Union Station — combine all three in one trip. Tuesday through Friday, 9–5 only, so plan ahead.</div></div>
-      <div class="place-actions"><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Federal+Reserve+Money+Museum+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Federal+Reserve+Money+Museum+Kansas+City+MO" target="_blank">Maps</a></div></div>
+      <div class="place-actions"><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Federal+Reserve+Money+Museum+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Federal+Reserve+Money+Museum+Kansas+City+MO" target="_blank">Maps</a></div></div>
     </div>
   </div>
 
   <div class="subsection-title">Must-do experiences</div>
   <div class="place-list">
-    <div class="place-row"><div class="place-info"><div class="place-name">Boulevard Brewery Tour</div><div class="place-note">Kansas City's most iconic brewery. Tours run regularly and include tastings. Book ahead — they fill up fast, especially on weekends.</div></div><div class="place-actions"><span class="tag tag-must">must do</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Boulevard+Brewing+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Boulevard+Brewing+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">The Roasterie Tour</div><div class="place-note">KC's beloved local coffee roaster. Factory tours are a great behind-the-scenes experience, and the café is worth a stop on its own.</div></div><div class="place-actions"><span class="tag tag-must">must do</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=The+Roasterie+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=The+Roasterie+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">KC Wheel</div><div class="place-note">A 70-foot observation wheel right in the heart of the city. Great views, fun for all ages, and in the same neighborhood as Boulevard and The Roasterie — easy to combine all three in one outing.</div></div><div class="place-actions"><span class="tag tag-must">must do</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=2485+Jefferson+St+Kansas+City+MO+64108" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?address=2485+Jefferson+St,+Kansas+City,+MO+64108" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Boulevard Brewery Tour</div><div class="place-note">Kansas City's most iconic brewery. Tours include tastings. Book ahead — they fill up fast on weekends.</div></div><div class="place-actions"><span class="tag tag-must">must do</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Boulevard+Brewing+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Boulevard+Brewing+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">The Roasterie Tour</div><div class="place-note">KC's beloved local coffee roaster. Factory tours are a great behind-the-scenes experience, and the café is worth a stop on its own.</div></div><div class="place-actions"><span class="tag tag-must">must do</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=The+Roasterie+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=The+Roasterie+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">KC Wheel</div><div class="place-note">A 70-foot observation wheel right in the heart of the city. Great views, fun for all ages, and in the same neighborhood as Boulevard and The Roasterie — easy to combine all three in one outing.</div></div><div class="place-actions"><span class="tag tag-must">must do</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=2485+Jefferson+St+Kansas+City+MO+64108" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?address=2485+Jefferson+St,+Kansas+City,+MO+64108" target="_blank">Maps</a></div></div></div>
   </div>
 
   <div class="subsection-title">Downtown KC</div>
   <div class="place-list">
-    <div class="place-row"><div class="place-info"><div class="place-name">Liberty Memorial / WWI Museum</div><div class="place-note">One of the best WWI museums in the world. The memorial itself is worth seeing even if you skip the museum.</div></div><div class="place-actions"><span class="tag tag-drive">20 min</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Liberty+Memorial+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Liberty+Memorial+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">Union Station</div><div class="place-note">Beautiful building, good restaurants inside, Science City is great for kids.</div></div><div class="place-actions"><span class="tag tag-drive">20 min</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Union+Station+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Union+Station+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">Power &amp; Light District</div><div class="place-note">Entertainment district with bars, restaurants, and live music. Lively on weekends.</div></div><div class="place-actions"><span class="tag tag-drive">20 min</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Power+and+Light+District+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Power+and+Light+District+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">18th &amp; Vine</div><div class="place-note">Historic jazz district. Home to the Negro Leagues Baseball Museum and American Jazz Museum. Genuinely important history.</div></div><div class="place-actions"><span class="tag tag-drive">20 min</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=18th+and+Vine+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=18th+and+Vine+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">Nelson-Atkins Museum of Art</div><div class="place-note">World-class art museum. Free admission. The shuttlecocks on the lawn are iconic.</div></div><div class="place-actions"><span class="tag tag-drive">20 min</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Nelson-Atkins+Museum+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Nelson-Atkins+Museum+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">Kauffman Center for the Performing Arts</div><div class="place-note">Stunning building worth seeing from outside even if you don't catch a show.</div></div><div class="place-actions"><span class="tag tag-drive">20 min</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Kauffman+Center+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Kauffman+Center+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Liberty Memorial / WWI Museum</div><div class="place-note">One of the best WWI museums in the world. The memorial itself is worth seeing even if you skip the museum.</div></div><div class="place-actions"><span class="tag tag-drive">20 min</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Liberty+Memorial+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Liberty+Memorial+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Union Station</div><div class="place-note">Beautiful building, good restaurants inside, Science City is great for kids.</div></div><div class="place-actions"><span class="tag tag-drive">20 min</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Union+Station+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Union+Station+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Power &amp; Light District</div><div class="place-note">Entertainment district with bars, restaurants, and live music. Lively on weekends.</div></div><div class="place-actions"><span class="tag tag-drive">20 min</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Power+and+Light+District+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Power+and+Light+District+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">18th &amp; Vine</div><div class="place-note">Historic jazz district. Home to the Negro Leagues Baseball Museum and American Jazz Museum. Genuinely important history.</div></div><div class="place-actions"><span class="tag tag-drive">20 min</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=18th+and+Vine+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=18th+and+Vine+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Nelson-Atkins Museum of Art</div><div class="place-note">World-class art museum. Free admission. The shuttlecocks on the lawn are iconic.</div></div><div class="place-actions"><span class="tag tag-drive">20 min</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Nelson-Atkins+Museum+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Nelson-Atkins+Museum+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Kauffman Center for the Performing Arts</div><div class="place-note">Stunning building worth seeing from outside even if you don't catch a show.</div></div><div class="place-actions"><span class="tag tag-drive">20 min</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Kauffman+Center+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Kauffman+Center+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
   </div>
 
   <div class="subsection-title">More KC</div>
   <div class="place-list">
-    <div class="place-row"><div class="place-info"><div class="place-name">Kansas City Zoo &amp; Aquarium</div><div class="place-note">Great for families. Full day activity.</div></div><div class="place-actions"><span class="tag tag-drive">25 min</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Kansas+City+Zoo+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Kansas+City+Zoo+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">Crown Center</div><div class="place-note">Shopping, dining, Hallmark visitor center. Connected to Union Station by a walkway.</div></div><div class="place-actions"><span class="tag tag-drive">20 min</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Crown+Center+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Crown+Center+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
-    <div class="place-row"><div class="place-info"><div class="place-name">Westport</div><div class="place-note">Older entertainment district, more neighborhood bar vibe than Power &amp; Light. Good for an evening out.</div></div><div class="place-actions"><span class="tag tag-drive">20 min</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Westport+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn nav-btn-maps" href="https://maps.apple.com/?q=Westport+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Kansas City Zoo &amp; Aquarium</div><div class="place-note">Great for families. Full day activity.</div></div><div class="place-actions"><span class="tag tag-drive">25 min</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Kansas+City+Zoo+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Kansas+City+Zoo+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Crown Center</div><div class="place-note">Shopping, dining, Hallmark visitor center. Connected to Union Station by a walkway.</div></div><div class="place-actions"><span class="tag tag-drive">20 min</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Crown+Center+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Crown+Center+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Westport</div><div class="place-note">Older entertainment district, more neighborhood bar vibe than Power &amp; Light. Good for an evening out.</div></div><div class="place-actions"><span class="tag tag-drive">20 min</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Westport+Kansas+City+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Westport+Kansas+City+MO" target="_blank">Maps</a></div></div></div>
   </div>
 </section>
+
+<hr class="section-divider">
+
+<!-- Outdoors -->
+<section class="section" id="outdoors">
+  <h2 class="section-title">Outdoors &amp; fitness</h2>
+
+  <div class="subsection-title">Trails &amp; nature</div>
+  <div class="place-list">
+    <div class="place-row"><div class="place-info"><div class="place-name">The Trail at Unity Village</div><div class="place-note">A beautiful trail with The Fillmore Cafe just a stone's throw from the trailhead — grab a coffee before or after your walk. A great way to start a morning.</div></div><div class="place-actions"><span class="tag tag-drive">short drive</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Trail+at+Unity+Village+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Unity+Village+Trail+Missouri" target="_blank">Maps</a></div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Burr Oak Woods Conservation Area</div><div class="place-note">Trails through native woodland, an air-conditioned visitor center, and a play area for young kids. It's very common to spot deer and wild turkey on the trails. A genuinely peaceful place to spend a few hours.</div></div><div class="place-actions"><span class="tag tag-drive">short drive</span><div class="nav-btns"><a class="nav-btn nav-btn-waze" href="https://waze.com/ul?q=Burr+Oak+Woods+Conservation+Area+Blue+Springs+MO" target="_blank">Waze</a><a class="nav-btn" href="https://maps.apple.com/?q=Burr+Oak+Woods+Conservation+Area+Blue+Springs+MO" target="_blank">Maps</a></div></div></div>
+  </div>
+
+  <div class="subsection-title">F3 &amp; FiA — free community workouts</div>
+  <div class="highlight-card">
+    <div class="place-name" style="margin-bottom:6px;">Meet friendly locals and explore the city</div>
+    <p class="place-note">I go to F3 as much as I can — it's one of the best things about living here. F3 (and FiA for women) offers free outdoor workouts every day of the week, led by volunteers, all over the KC metro. The workouts are always completely free, the people are friendly and generous, and it's a great way to make new friends and see different parts of the city while you're here.</p>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <a href="https://f3nation.com" target="_blank" style="display:inline-block;background:var(--amber);color:var(--white);font-size:13px;font-weight:500;padding:7px 16px;border-radius:var(--radius-sm);text-decoration:none;">Find an F3 workout →</a>
+      <a href="https://fianation.com" target="_blank" style="display:inline-block;background:var(--surface);color:var(--text);font-size:13px;font-weight:500;padding:7px 16px;border-radius:var(--radius-sm);text-decoration:none;border:1px solid var(--border);">FiA (for women) →</a>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- International visitor tips -->
+<section class="section" id="international">
+  <h2 class="section-title">Visitor tips</h2>
+  <p class="section-intro">A few things that are helpful to know if you're visiting Kansas City for the first time — especially if you're coming from outside the US.</p>
+
+  <div class="subsection-title">Weather</div>
+  <div class="weather-row">
+    <div class="weather-card"><div class="weather-card-season">Summer (Jun–Aug)</div><div class="weather-card-note">Hot and humid. Temperatures often in the 90s°F (32–38°C). Thunderstorms can pop up quickly — check the forecast before outdoor plans.</div></div>
+    <div class="weather-card"><div class="weather-card-season">Fall (Sep–Nov)</div><div class="weather-card-note">Beautiful and mild. Best weather of the year. Temps drop fast after October.</div></div>
+    <div class="weather-card"><div class="weather-card-season">Winter (Dec–Feb)</div><div class="weather-card-note">Unpredictable — can be mild or brutally cold with ice storms. Check conditions before driving.</div></div>
+    <div class="weather-card"><div class="weather-card-season">Spring (Mar–May)</div><div class="weather-card-note">Warm and stormy. Tornado season peaks in May. Severe weather alerts are taken seriously here.</div></div>
+  </div>
+
+  <div class="subsection-title">Tipping &amp; customs</div>
+  <div class="place-list">
+    <div class="place-row"><div class="place-info"><div class="place-name">Restaurants</div><div class="place-note">15–20% tip is standard at sit-down restaurants. It is not included in the bill automatically and is an important part of your server's income.</div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Bars &amp; coffee</div><div class="place-note">$1–2 per drink at a bar is appreciated. Coffee shops often have a tip prompt on the screen — no pressure, but it's welcomed.</div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Rideshare</div><div class="place-note">Tipping your Uber or Lyft driver in the app is appreciated but not required.</div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Sales tax</div><div class="place-note">Prices on menus and shelves do not include tax. Missouri sales tax will be added at checkout — expect to pay a little more than the listed price.</div></div></div>
+    <div class="place-row"><div class="place-info"><div class="place-name">Driving</div><div class="place-note">Kansas City is a very car-centric city. Most attractions require a car or rideshare. Speed limits are posted in miles per hour (mph).</div></div></div>
+  </div>
+
+  <div class="subsection-title">Book direct next time</div>
+  <div class="book-direct">
+    <p>Loved your stay? Skip the platform fees and book directly with us next time. Same property, better rate.</p>
+    <a href="https://basekc.com" target="_blank">Book at basekc.com →</a>
+  </div>
+</section>
+
+
+<footer style="padding: 32px 20px 20px; border-top: 1px solid var(--border); text-align: center;">
+  <p style="font-size: 13px; color: var(--hint); margin-bottom: 14px;">Follow BaseKC</p>
+  <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+    <a href="https://www.facebook.com/profile.php?id=61590202185822" target="_blank" style="font-size: 13px; font-weight: 500; color: var(--muted); text-decoration: none; padding: 7px 16px; border: 1px solid var(--border); border-radius: 20px; background: var(--white);">Facebook</a>
+    <a href="https://www.youtube.com/@BaseKC" target="_blank" style="font-size: 13px; font-weight: 500; color: var(--muted); text-decoration: none; padding: 7px 16px; border: 1px solid var(--border); border-radius: 20px; background: var(--white);">YouTube</a>
+    <a href="https://basekc.com" target="_blank" style="font-size: 13px; font-weight: 500; color: var(--amber); text-decoration: none; padding: 7px 16px; border: 1px solid var(--amber-border); border-radius: 20px; background: var(--amber-light);">Book Direct</a>
+  </div>
+  <p style="font-size: 12px; color: var(--hint); margin-top: 20px;">© BaseKC · Independence, Missouri</p>
+</footer>
 
 <!-- Back to top -->
 <a href="#" class="back-top" id="backTop" aria-label="Back to top">↑</a>
@@ -587,13 +521,17 @@ function showTab(tab) {
   document.getElementById('tab-android').className = 'install-tab' + (tab === 'android' ? ' active' : '');
 }
 
-// Back to top
+function toggleAccordion(btn) {
+  btn.classList.toggle('open');
+  const content = btn.nextElementSibling;
+  content.classList.toggle('open');
+}
+
 const backTop = document.getElementById('backTop');
 window.addEventListener('scroll', () => {
   backTop.classList.toggle('visible', window.scrollY > 400);
 });
 
-// Active nav highlight
 const sections = document.querySelectorAll('section[id], div[id]');
 const navLinks = document.querySelectorAll('.section-nav a');
 const observer = new IntersectionObserver(entries => {
@@ -604,13 +542,23 @@ const observer = new IntersectionObserver(entries => {
       if (active) active.classList.add('active');
     }
   });
-}, { threshold: 0.3 });
+}, { threshold: 0.2 });
 sections.forEach(s => observer.observe(s));
 
-// Register service worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js');
 }
 </script>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false
+  }, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
