@@ -157,6 +157,21 @@
     .emergency-grid { grid-template-columns: 1fr; }
     .weather-row { grid-template-columns: 1fr; }
   }
+
+  /* Weather widget */
+  .weather-widget { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 16px; }
+  .weather-location { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; color: var(--hint); margin-bottom: 10px; }
+  .weather-today { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+  .weather-today-icon { font-size: 40px; line-height: 1; }
+  .weather-today-temp { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 500; color: var(--text); line-height: 1; }
+  .weather-today-desc { font-size: 13px; color: var(--muted); margin-top: 3px; text-transform: capitalize; }
+  .weather-forecast { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; }
+  .weather-day { text-align: center; }
+  .weather-day-name { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--hint); margin-bottom: 4px; }
+  .weather-day-icon { font-size: 22px; margin-bottom: 2px; }
+  .weather-day-temps { font-size: 13px; color: var(--text); font-weight: 500; }
+  .weather-day-temps span { color: var(--muted); font-weight: 400; }
+  .weather-loading { font-size: 13px; color: var(--hint); text-align: center; padding: 16px 0; }
 </style>
 </head>
 <body>
@@ -194,7 +209,10 @@
 
 <!-- Install instructions -->
 <div class="install-instructions" id="install">
-  <h3>📱 Save this guide to your home screen</h3>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+    <h3 style="margin-bottom:0;">📱 Save this guide to your home screen</h3>
+    <button onclick="dismissInstall()" style="background:none;border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;font-family:'Inter',sans-serif;">Done ✓</button>
+  </div>
   <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">Works like an app, no download required. One tap away anytime — even offline.</p>
   <div class="install-tabs">
     <button class="install-tab active" onclick="showTab('ios')" id="tab-ios">iPhone</button>
@@ -218,6 +236,12 @@
 <section class="section" id="stay">
   <h2 class="section-title">Your stay</h2>
   <p class="section-intro">Everything you need to know about the property.</p>
+
+
+  <div class="weather-widget" id="weather-widget">
+    <div class="weather-location">Independence, MO — Current forecast</div>
+    <div id="weather-content"><div class="weather-loading">Loading forecast...</div></div>
+  </div>
 
   <div class="info-grid">
     <div class="info-card">
@@ -333,6 +357,17 @@
   <div class="noland-callout">
     <h4>Saturday nights on Noland Road</h4>
     <p>Noland Road has been the historical center of Kansas City's car culture for decades. On Saturday evenings, spontaneous car shows can pop up anywhere along the stretch between 40 Highway and 23rd Street — classics, customs, muscle cars, you name it. Very welcoming crowd, completely free, and one of those only-in-KC experiences most visitors never know about.</p>
+
+    <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border);">
+      <div style="font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 8px;">Find the community on Facebook</div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <a href="https://www.facebook.com/groups/879934912455434/" target="_blank" style="font-size: 13px; color: var(--amber); text-decoration: none;">Noland Road Saturday Night Cruise →</a>
+        <a href="https://www.facebook.com/groups/CruiseNoland" target="_blank" style="font-size: 13px; color: var(--amber); text-decoration: none;">Real Cruisers of Noland Road →</a>
+        <a href="https://www.facebook.com/groups/148317172308016" target="_blank" style="font-size: 13px; color: var(--amber); text-decoration: none;">Noland Road Cruise Group →</a>
+        <a href="https://www.facebook.com/groups/362996057204634" target="_blank" style="font-size: 13px; color: var(--amber); text-decoration: none;">Cruising Noland Road →</a>
+        <a href="https://www.facebook.com/share/1F7A4ELS8x/" target="_blank" style="font-size: 13px; color: var(--amber); text-decoration: none;">McDonald's Cruise-in (Thursdays, different part of town) →</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -392,7 +427,7 @@
 <section class="section" id="bbq">
   <h2 class="section-title">Kansas City BBQ — Steve's guide</h2>
   <p class="section-intro">There are so many options and strong opinions here. A few things to know before you order:</p>
-  <div class="tip">Pulled pork wasn't really a KC thing until the last 20 years or so. If you want to eat like a local, go for burnt ends, brisket, or ribs. Also — don't be surprised if your ribs aren't "fall off the bone." According to KC BBQ Society rules, that actually means overcooked.</div>
+  <div class="tip">If you want to eat like a local, go for burnt ends, brisket, or ribs. Also — don't be surprised if your ribs aren't "fall off the bone." According to KC BBQ Society rules, that actually means overcooked.</div>
   <div class="tip">KC sauce is typically molasses and tomato-based. Gates and Jack Stack are crowd-pleasers and great to bring home as gifts. If you spot a mustard-based sauce on a menu, it's usually worth trying.</div>
 
   <div class="subsection-title">My recommendations</div>
@@ -540,6 +575,16 @@
 <a href="#" class="back-top" id="backTop" aria-label="Back to top">↑</a>
 
 <script>
+// Install banner dismiss
+const installSection = document.querySelector('.install-instructions');
+if (localStorage.getItem('installDismissed')) {
+  installSection.style.display = 'none';
+}
+function dismissInstall() {
+  installSection.style.display = 'none';
+  localStorage.setItem('installDismissed', '1');
+}
+
 function showTab(tab) {
   document.getElementById('steps-ios').style.display = tab === 'ios' ? 'block' : 'none';
   document.getElementById('steps-android').style.display = tab === 'android' ? 'block' : 'none';
@@ -587,5 +632,72 @@ function googleTranslateElementInit() {
 </script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script async src="https://www.viator.com/orion/partner/widget.js"></script>
+
+<script>
+(function() {
+  const LAT = 39.0918;
+  const LON = -94.4155;
+
+  // WMO weather code to emoji + description
+  function getWeather(code) {
+    if (code === 0) return { icon: '☀️', desc: 'Clear sky' };
+    if (code <= 2) return { icon: '⛅', desc: 'Partly cloudy' };
+    if (code === 3) return { icon: '☁️', desc: 'Overcast' };
+    if (code <= 49) return { icon: '🌫️', desc: 'Foggy' };
+    if (code <= 59) return { icon: '🌦️', desc: 'Drizzle' };
+    if (code <= 69) return { icon: '🌧️', desc: 'Rain' };
+    if (code <= 79) return { icon: '❄️', desc: 'Snow' };
+    if (code <= 84) return { icon: '🌦️', desc: 'Rain showers' };
+    if (code <= 94) return { icon: '⛈️', desc: 'Thunderstorm' };
+    return { icon: '⛈️', desc: 'Severe storm' };
+  }
+
+  function dayName(dateStr) {
+    return new Date(dateStr).toLocaleDateString('en-US', { weekday: 'short', timeZone: 'America/Chicago' });
+  }
+
+  function cToF(c) { return Math.round(c * 9/5 + 32); }
+
+  async function loadWeather() {
+    try {
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current=temperature_2m,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&timezone=America%2FChicago&forecast_days=4`;
+      const res = await fetch(url);
+      const data = await res.json();
+
+      const current = data.current;
+      const daily = data.daily;
+
+      const todayWeather = getWeather(current.weathercode);
+      const todayTemp = Math.round(current.temperature_2m);
+
+      const forecastHTML = daily.time.slice(1, 4).map((date, i) => {
+        const w = getWeather(daily.weathercode[i+1]);
+        return `
+          <div class="weather-day">
+            <div class="weather-day-name">${dayName(date)}</div>
+            <div class="weather-day-icon">${w.icon}</div>
+            <div class="weather-day-temps">${Math.round(daily.temperature_2m_max[i+1])}° <span>${Math.round(daily.temperature_2m_min[i+1])}°</span></div>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('weather-content').innerHTML = `
+        <div class="weather-today">
+          <div class="weather-today-icon">${todayWeather.icon}</div>
+          <div>
+            <div class="weather-today-temp">${todayTemp}°F</div>
+            <div class="weather-today-desc">${todayWeather.desc}</div>
+          </div>
+        </div>
+        <div class="weather-forecast">${forecastHTML}</div>
+      `;
+    } catch(e) {
+      document.getElementById('weather-content').innerHTML = '<div class="weather-loading">Forecast unavailable</div>';
+    }
+  }
+
+  loadWeather();
+})();
+</script>
 </body>
 </html>
