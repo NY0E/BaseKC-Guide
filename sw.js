@@ -18,7 +18,7 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => cache.addAll(PRECACHE_ASSETS))
   );
-  // Activate immediately — don't wait for old SW to be released
+  // Activate immediately; don't wait for old SW to be released
   self.skipWaiting();
 });
 
@@ -56,7 +56,7 @@ self.addEventListener('fetch', event => {
           return response;
         })
         .catch(() => {
-          // Network failed — fall back to cache
+          // Network failed, fall back to cache
           return caches.match(request).then(cached => {
             return cached || new Response(
               '<h1>You are offline</h1><p>Please reconnect to see the latest guidebook.</p>',
