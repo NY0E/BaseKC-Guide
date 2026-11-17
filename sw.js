@@ -5,7 +5,7 @@
 // Bump CACHE_VERSION any time you update the guidebook
 // ============================================================
 
-const CACHE_VERSION = 'v3';
+const CACHE_VERSION = 'v4';
 const CACHE_NAME = `guidebook-${CACHE_VERSION}`;
 
 const PRECACHE_ASSETS = [
